@@ -1,5 +1,6 @@
 package com.expeditors.ecommerce.dto;
 
+import com.expeditors.ecommerce.enums.Role;
 import lombok.Data;
 
 @Data
@@ -10,4 +11,6 @@ public class CustomerDTO {
     private String gscId;
     private String email;
     private String role;
+
+
 }

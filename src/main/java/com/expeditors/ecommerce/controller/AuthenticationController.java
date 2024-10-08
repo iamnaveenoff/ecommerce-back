@@ -4,7 +4,7 @@ import com.expeditors.ecommerce.dto.JwtAuthenticationResponseDTO;
 import com.expeditors.ecommerce.dto.RefreshTokenRequestDTO;
 import com.expeditors.ecommerce.dto.SignUpRequestDTO;
 import com.expeditors.ecommerce.dto.SigninRequestDTO;
-import com.expeditors.ecommerce.entities.CustomerEntities;
+import com.expeditors.ecommerce.entities.Customer;
 import com.expeditors.ecommerce.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ public class AuthenticationController {
     private  final AuthenticationService authenticationService;
 
     @PostMapping("/signup")
-    public ResponseEntity<CustomerEntities> signup(@RequestBody SignUpRequestDTO signUpRequestDTO){
+    public ResponseEntity<Customer> signup(@RequestBody SignUpRequestDTO signUpRequestDTO){
         return ResponseEntity.ok(authenticationService.signUp(signUpRequestDTO));
     }
 

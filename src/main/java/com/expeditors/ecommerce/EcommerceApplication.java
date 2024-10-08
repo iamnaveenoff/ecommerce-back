@@ -1,6 +1,6 @@
 package com.expeditors.ecommerce;
 
-import com.expeditors.ecommerce.entities.CustomerEntities;
+import com.expeditors.ecommerce.entities.Customer;
 import com.expeditors.ecommerce.enums.Role;
 import com.expeditors.ecommerce.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +20,9 @@ public class EcommerceApplication implements CommandLineRunner {
 	}
 
 	public  void run(String... args){
-		CustomerEntities adminAccount = userRepository.findByRole(Role.ADMIN);
+		Customer adminAccount = userRepository.findByRole(Role.ADMIN);
 		if(null== adminAccount){
-			CustomerEntities user = new CustomerEntities();
+			Customer user = new Customer();
 
 			user.setEmail("naveen@expeditors.com");
 			user.setName("Naveen");

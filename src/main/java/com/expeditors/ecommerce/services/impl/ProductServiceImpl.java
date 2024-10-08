@@ -2,7 +2,7 @@ package com.expeditors.ecommerce.services.impl;
 
 import com.expeditors.ecommerce.dto.ProductDTO;
 import com.expeditors.ecommerce.entities.Category;
-import com.expeditors.ecommerce.entities.CustomerEntities;
+import com.expeditors.ecommerce.entities.Customer;
 import com.expeditors.ecommerce.entities.Product;
 import com.expeditors.ecommerce.enums.Role;
 import com.expeditors.ecommerce.repository.CategoryRepository;
@@ -29,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
     private ImageStorageService imageStorageService;
 
 
-    public Product publishProduct(String productName, String description, Double price, String contactNumber, Long categoryId, MultipartFile image, CustomerEntities customer) throws IOException {
+    public Product publishProduct(String productName, String description, Double price, String contactNumber, Long categoryId, MultipartFile image, Customer customer) throws IOException {
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new RuntimeException("Category not found"));
 
@@ -53,7 +53,7 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.save(savedProduct);
     }
 
-    public Product updateProduct(Long productId, String productName, String description, Double price, String contactNumber, Long categoryId, MultipartFile image, CustomerEntities currentUser) throws IOException {
+    public void updateProduct(Long productId, String productName, String description, Double price, String contactNumber, Long categoryId, MultipartFile image, Customer currentUser) throws IOException {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
 
@@ -85,11 +85,11 @@ public class ProductServiceImpl implements ProductService {
             product.setProductImage(image.getBytes());
         }
 
-        return productRepository.save(product);
+        productRepository.save(product);
     }
 
     @Override
-    public void deleteProduct(Long productId, CustomerEntities currentUser) {
+    public void deleteProduct(Long productId, Customer currentUser) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
 

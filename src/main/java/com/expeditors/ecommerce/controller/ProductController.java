@@ -1,7 +1,7 @@
 package com.expeditors.ecommerce.controller;
 
 import com.expeditors.ecommerce.dto.ProductDTO;
-import com.expeditors.ecommerce.entities.CustomerEntities;
+import com.expeditors.ecommerce.entities.Customer;
 import com.expeditors.ecommerce.entities.Product;
 import com.expeditors.ecommerce.services.ProductService;
 import com.expeditors.ecommerce.utils.ResponseMessage;
@@ -34,7 +34,7 @@ public class ProductController {
             @RequestParam MultipartFile image) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        CustomerEntities currentUser = (CustomerEntities) authentication.getPrincipal();
+        Customer currentUser = (Customer) authentication.getPrincipal();
 
 
         try {
@@ -60,7 +60,7 @@ public class ProductController {
             @RequestParam(required = false) MultipartFile image) throws IOException {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        CustomerEntities currentUser = (CustomerEntities) authentication.getPrincipal();
+        Customer currentUser = (Customer) authentication.getPrincipal();
 
         try {
             productService.updateProduct(productId, productName, description, price, contactNumber, categoryId, image, currentUser);
@@ -76,7 +76,7 @@ public class ProductController {
     @DeleteMapping("/{productId}")
     public ResponseEntity<?> deleteProduct(@PathVariable Long productId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        CustomerEntities currentUser = (CustomerEntities) authentication.getPrincipal();
+        Customer currentUser = (Customer) authentication.getPrincipal();
 
         try {
             productService.deleteProduct(productId, currentUser);

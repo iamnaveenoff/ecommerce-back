@@ -1,6 +1,5 @@
 package com.expeditors.ecommerce.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -30,7 +29,7 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
     @JsonManagedReference
-    private CustomerEntities customer;
+    private Customer customer;
 
     private boolean published;
 }

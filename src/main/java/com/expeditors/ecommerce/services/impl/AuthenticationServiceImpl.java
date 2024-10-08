@@ -1,7 +1,7 @@
 package com.expeditors.ecommerce.services.impl;
 
 import com.expeditors.ecommerce.dto.*;
-import com.expeditors.ecommerce.entities.CustomerEntities;
+import com.expeditors.ecommerce.entities.Customer;
 import com.expeditors.ecommerce.enums.Role;
 import com.expeditors.ecommerce.repository.UserRepository;
 import com.expeditors.ecommerce.services.AuthenticationService;
@@ -23,7 +23,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final JWTService jwtService;
 
-    public CustomerEntities signUp(SignUpRequestDTO signUpRequestDTO) {
+    public Customer signUp(SignUpRequestDTO signUpRequestDTO) {
         // Check if email already exists
         if (userRepository.existsByEmail(signUpRequestDTO.getEmail())) {
             throw new IllegalArgumentException("User email already exists.");
@@ -35,7 +35,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
 
         // If both checks pass, proceed to create a new user
-        CustomerEntities user = new CustomerEntities();
+        Customer user = new Customer();
         user.setEmail(signUpRequestDTO.getEmail());
         user.setName(signUpRequestDTO.getName());
         user.setPhone(signUpRequestDTO.getPhone());
@@ -74,7 +74,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     public JwtAuthenticationResponseDTO refreshToken(RefreshTokenRequestDTO refreshTokenRequestDTO) {
         String userEmail = jwtService.extractUserName(refreshTokenRequestDTO.getToken());
-        CustomerEntities user = userRepository.findByEmail(userEmail).orElseThrow();
+        Customer user = userRepository.findByEmail(userEmail).orElseThrow();
 
         if (jwtService.isTokenValid(refreshTokenRequestDTO.getToken(), user)) {
             var jwt = jwtService.generateToken(user);
